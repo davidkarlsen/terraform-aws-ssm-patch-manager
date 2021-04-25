@@ -83,7 +83,6 @@ resource "aws_ssm_maintenance_window_task" "scan" {
 }
 
 resource "aws_ssm_maintenance_window_target" "install" {
-  count         = var.install_enabled ? 1 : 0
   for_each      = var.platforms
   window_id     = aws_ssm_maintenance_window.install.id
   resource_type = "INSTANCE"
