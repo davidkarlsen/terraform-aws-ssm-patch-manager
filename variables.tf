@@ -250,3 +250,9 @@ variable "install_schedule" {
   description = "6-field Cron expression describing the install maintenance schedule"
   type        = string
 }
+
+variable "install_enabled" {
+  description = "Toggle installations"
+  type        = bool
+  default     = true
+}

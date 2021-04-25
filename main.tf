@@ -23,6 +23,7 @@ resource "aws_ssm_maintenance_window" "scan" {
 }
 
 resource "aws_ssm_maintenance_window" "install" {
+  count             = var.install_enabled ? 1 : 0
   name              = "install-${var.name}"
   cutoff            = var.install_cutoff
   description       = "Maintenance window for applying patches"
@@ -82,6 +83,7 @@ resource "aws_ssm_maintenance_window_task" "scan" {
 }
 
 resource "aws_ssm_maintenance_window_target" "install" {
+  count         = var.install_enabled ? 1 : 0
   for_each      = var.platforms
   window_id     = aws_ssm_maintenance_window.install.id
   resource_type = "INSTANCE"
@@ -93,6 +95,7 @@ resource "aws_ssm_maintenance_window_target" "install" {
 }
 
 resource "aws_ssm_maintenance_window_task" "install" {
+  count           = var.install_enabled ? 1 : 0
   max_concurrency = var.max_install_concurrency
   max_errors      = var.max_install_errors
   priority        = 1
